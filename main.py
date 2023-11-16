@@ -1,16 +1,15 @@
 import random
 import sys
-
-from PyQt5 import uic
+from file import Ui_MainWindow
 from PyQt5.QtGui import QPainter, QColor
 from PyQt5.QtWidgets import QMainWindow, QApplication
 
 
-class MainWindow(QMainWindow):
+class Example(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
+        self.setupUi(self)
         self.do_paint = None
-        uic.loadUi('UI.ui', self)  # Загружаем дизайн
         self.circle_button.clicked.connect(self.paint)
 
     def paintEvent(self, event):
@@ -27,7 +26,7 @@ class MainWindow(QMainWindow):
 
     def draw_flag(self, qp):
         # Задаем кисть
-        qp.setBrush(QColor(255, 255, 0))
+        qp.setBrush(QColor(random.randrange(0, 255), random.randrange(0, 255), random.randrange(0, 255)))
         x = random.randrange(1, 700)
         y = random.randrange(1, 500)
         diametr = random.randrange(25, 500)
@@ -36,6 +35,6 @@ class MainWindow(QMainWindow):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = MainWindow()
+    ex = Example()
     ex.show()
     sys.exit(app.exec())
